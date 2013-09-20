@@ -7,11 +7,51 @@
 <div class="box-bc"><div class="box-ml"><div class="box-content">
 
 <div id="contentstructure">
+{if ezini_hasvariable( 'Settings', 'Tools', 'inigui.ini' )}
+    {def $tools = ezini( 'Settings', 'Tools', 'inigui.ini' )}
+    {if count( $tools )|gt(0)}
+    <h4>Tools</h4>
+    <ul>
+    {foreach $tools as $tool}
+        <li>
+        {if ezini_hasvariable( $tool, 'Url', 'inigui.ini' )}
+            <a href={ezini( $tool, 'Url', 'inigui.ini' )}>
+                {ezini( $tool, 'Name', 'inigui.ini' )}
+            </a>
+        {else}
+            <a href={concat('inigui/tools/', $tool)|ezurl()}>
+                {ezini( $tool, 'Name', 'inigui.ini' )}
+            </a>
+        {/if}
+        </li>
+    {/foreach}
+    </ul>
+    {/if}
+{/if}
+
+{if and( is_set( $current_siteaccess ), is_set( $ini_file ) )}
+<h4>INI File</h4>
+{def $available_ini = ezini( 'Settings', 'AvailableIni', 'inigui.ini' )}
+
+<ul>
+{foreach $available_ini as $ini}
+    <li>
+        <a href={concat('inigui/dashboard/',$current_siteaccess, '/', $ini)|ezurl()}>
+        {if eq( $ini_file, $ini )}
+            <strong>{$ini|wash()}</strong>
+        {else}
+            {$ini|wash()}
+        {/if}
+        </a>
+    </li>
+{/foreach}
+</ul>
+    
 <h4>SiteAccess</h4>
 	<ul>
         {foreach $siteaccess_list as $siteaccess}
         <li>
-        	<a href={concat('inigui/dashboard/',$siteaccess)|ezurl()}>
+        	<a href={concat('inigui/dashboard/',$siteaccess, '/', $ini_file)|ezurl()}>
         	{if eq( $current_siteaccess, $siteaccess )}
         		<strong>{$siteaccess|wash()}</strong>
         	{else}
@@ -34,7 +74,8 @@
         	</a>
         </li>
         {/foreach}
-    </ul>    
+    </ul>
+{/if}    
 </div>
 
 </div></div></div>

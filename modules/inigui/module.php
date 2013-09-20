@@ -13,6 +13,22 @@ $ViewList['dashboard'] = array(
     'unordered_params' => array()
 );
 
+$ViewList['tools'] = array(
+    'functions' => array( 'dashboard' ),
+    'script' => 'tools.php',
+    'default_navigation_part' => 'ociniguinavigationpart',
+    'params' => array( 'ToolID' ),
+    'unordered_params' => array()
+);
+
+$ViewList['generalink'] = array(
+    'functions' => array( 'generalink' ),
+    'script' => 'generalink.php',
+    'params' => array(),
+    'unordered_params' => array()
+);
+
+
 /*
 $ViewList['edit'] = array(
     'functions' => array( 'edit' ),
@@ -25,5 +41,6 @@ $ViewList['edit'] = array(
 
 $FunctionList = array();
 $FunctionList['dashboard'] = array();
+$FunctionList['generalink'] = array();
 //$FunctionList['edit'] = array();
 ?>

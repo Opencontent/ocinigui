@@ -1,11 +1,16 @@
 <?php
-
+$module = $Params['Module'];
 $tpl = eZTemplate::factory();
 $siteAccessList = eZINI::instance()->variable( 'SiteAccessSettings', 'RelatedSiteAccessList' );
 $selectedBlock = $Params['Block'] ? $Params['Block'] : false;
 
-$settingFile = 'openpa.ini';
-$currentSiteAccess = $Params['SiteAccess'] ? $Params['SiteAccess'] : $GLOBALS['eZCurrentAccess']['name'];
+$settingFile = $Params['INIFile'] ? $Params['INIFile'] : 'openpa.ini';
+$currentSiteAccess = $Params['SiteAccess'] ? $Params['SiteAccess'] : str_replace('_backend', '_frontend', $GLOBALS['eZCurrentAccess']['name'] );
+
+if ( !in_array( $settingFile, eZINI::instance( 'inigui.ini' )->variable( 'Settings', 'AvailableIni' ) ) )
+{
+    return $Module->handleError( eZError::KERNEL_NOT_FOUND, 'kernel' );
+}
 
 $iniTool = new OCIniGuiTools( $settingFile, $currentSiteAccess, $selectedBlock );
 $iniTool->load();
