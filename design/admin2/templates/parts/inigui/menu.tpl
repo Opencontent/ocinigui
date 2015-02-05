@@ -8,7 +8,7 @@
 
 <div id="contentstructure">
 {if ezini_hasvariable( 'Settings', 'Tools', 'inigui.ini' )}
-    {def $tools = ezini( 'Settings', 'Tools', 'inigui.ini' )}
+    {def $tools = ezini( 'Settings', 'Tools', 'inigui.ini' )}    
     {if count( $tools )|gt(0)}
     <h4>Tools</h4>
     <ul>

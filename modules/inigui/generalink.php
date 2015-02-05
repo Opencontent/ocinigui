@@ -7,7 +7,7 @@ $links = array();
 $generaUrl = '';
 if( $http->hasPostVariable( 'url' ) )
 {
-    $generaUrl = $http->postVariable( 'url' );
+    $generaUrl = '/' . ltrim( $http->postVariable( 'url' ), '/' );
 }
 
 $fileList = array();
@@ -24,7 +24,8 @@ foreach( $fileList as $file )
 foreach( $siteaccess as $sa )
 {
     $siteini = new eZINI( 'site.ini.append.php', 'settings/siteaccess/' . $sa, null, false );    
-    $links[$sa] = rtrim( $siteini->variable( 'SiteSettings', 'SiteURL' ), '/' ) . $generaUrl;
+    //$links[$sa] = rtrim( $siteini->variable( 'SiteSettings', 'SiteURL' ), '/' ) . $generaUrl;
+    $links[$sa] = rtrim( str_replace( '_backend', '', $sa ), '/' ) . '.opencontent.it' . $generaUrl;
 }
 
 ksort( $links );

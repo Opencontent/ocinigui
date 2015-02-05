@@ -11,6 +11,7 @@ $class = eZINI::instance( 'inigui.ini' )->variable( $ToolID, 'PHPClass', 'inigui
 if ( class_exists( $class ) )
 {
     $object = new $class();    
+    $object->module = $module;
     $object->run();
     if ( $object->useTemplate() !== false )
     {
